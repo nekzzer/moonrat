@@ -1,0 +1,58 @@
+:root,
+:root[data-theme="nord"] {
+  --fjord: #a9c4d8;
+  --fjord-soft: rgba(169, 196, 216, 0.14);
+  --berry: #d98a9a;
+}
+
+:root[data-theme="blood"] {
+  --fjord: #e08a8a;
+  --fjord-soft: rgba(224, 138, 138, 0.14);
+  --berry: #a9c4d8;
+}
+
+:root[data-theme="moss"] {
+  --fjord: #9ec49a;
+  --fjord-soft: rgba(158, 196, 154, 0.14);
+  --berry: #d98a9a;
+}
+
+:root[data-theme="amber"] {
+  --fjord: #d8bd8a;
+  --fjord-soft: rgba(216, 189, 138, 0.14);
+  --berry: #d98a9a;
+}
+
+:root[data-theme="paper"] {
+  --ink-0: #eceef1;
+  --ink-1: #f4f5f7;
+  --ink-2: #e4e6ea;
+  --ink-3: #dcdfe5;
+  --ink-4: #d4d7de;
+
+  --line-1: #d3d6dc;
+  --line-2: #bfc3cb;
+  --line-3: #a4aab4;
+
+  --snow-0: #191b1f;
+  --snow-1: #292c32;
+  --snow-2: #585d66;
+  --snow-3: #878c95;
+
+  --fjord: #38678c;
+  --fjord-soft: rgba(56, 103, 140, 0.16);
+  --berry: #ab3f52;
+
+  --shadow-panel: 0 12px 32px rgba(30, 40, 60, 0.12);
+}
+
+:root[data-theme="paper"] body {
+  background:
+    radial-gradient(1100px 520px at 78% -12%, rgba(56, 103, 140, 0.07), transparent 62%),
+    radial-gradient(820px 420px at -10% 110%, rgba(56, 103, 140, 0.04), transparent 60%),
+    var(--ink-0);
+}
+
+:root[data-theme="paper"] ::-webkit-scrollbar-thumb {
+  border-color: var(--ink-0);
+}

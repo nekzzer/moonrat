@@ -1,0 +1,53 @@
+@layer views {
+  .login-body {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .login-card {
+    display: grid;
+    gap: var(--space-3);
+    width: min(420px, 90vw);
+    padding: var(--space-6) var(--space-5);
+    border: 1px solid var(--line-1);
+    border-radius: var(--radius-lg);
+    background: var(--ink-2);
+    box-shadow: var(--shadow-panel), 0 0 80px rgba(169, 196, 216, 0.07);
+    animation: rise 380ms var(--ease-out);
+  }
+
+  .login-card .brand {
+    margin-bottom: var(--space-1);
+    font-size: var(--text-md);
+    letter-spacing: 0.42em;
+  }
+
+  @media (max-width: 880px) {
+    .shell {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .rail {
+      flex-direction: row;
+      gap: var(--space-2);
+      border-right: 0;
+      border-bottom: 1px solid var(--line-1);
+      overflow-x: auto;
+    }
+
+    .agent {
+      min-width: 210px;
+      width: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+}

