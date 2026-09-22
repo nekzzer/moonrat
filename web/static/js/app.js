@@ -9,6 +9,9 @@ import { createShellView } from "./views/shell.js";
 import { createConsoleView } from "./views/console.js";
 import { createFunView } from "./views/fun.js";
 import { createKeysView } from "./views/keys.js";
+import { createMediaView } from "./views/media.js";
+import { createClipView } from "./views/clip.js";
+import { createPersistView } from "./views/persist.js";
 import { createAccessView } from "./views/access.js";
 
 initThemePicker($("#btn-theme"));
@@ -35,6 +38,9 @@ const views = {
   console: createConsoleView($("#tab-console"), context),
   fun: createFunView($("#tab-fun"), context),
   keys: createKeysView($("#tab-keys"), context),
+  media: createMediaView($("#tab-media"), context),
+  clip: createClipView($("#tab-clip"), context),
+  persist: createPersistView($("#tab-persist"), context),
   access: createAccessView($("#tab-access"), context),
 };
 

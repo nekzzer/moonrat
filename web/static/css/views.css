@@ -43,6 +43,28 @@
     font-size: var(--text-md);
   }
 
+  .panel.drag {
+    outline: 1px dashed var(--fjord);
+    outline-offset: -8px;
+    background: var(--fjord-soft);
+  }
+
+  #cam-shot {
+    max-width: 100%;
+    border: 1px solid var(--line-1);
+    border-radius: var(--radius-md);
+  }
+
+  #mic-audio {
+    display: none;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  #mic-audio:not([hidden]) {
+    display: block;
+  }
+
   @media (max-width: 880px) {
     .shell {
       grid-template-columns: minmax(0, 1fr);

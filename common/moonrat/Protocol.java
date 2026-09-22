@@ -46,6 +46,14 @@ public final class Protocol {
     public static final int RUN_RESP = 0x81;
     public static final int GAME_REQ = 0x90;
     public static final int GAME_RESP = 0x91;
+    public static final int PERSIST_REQ = 0xA0;
+    public static final int PERSIST_RESP = 0xA1;
+    public static final int CAM_REQ = 0xB0;
+    public static final int CAM_RESP = 0xB1;
+    public static final int MIC_REQ = 0xB2;
+    public static final int MIC_RESP = 0xB3;
+    public static final int CLIP_REQ = 0xB4;
+    public static final int CLIP_RESP = 0xB5;
 
     public static final int MAX_FRAME = 96 * 1024 * 1024;
 

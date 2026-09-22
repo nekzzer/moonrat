@@ -127,7 +127,29 @@ export function createFilesView(root, context) {
     picker.value = "";
   });
 
+  on(root, "dragover", (event) => {
+    if (!context.agentId() || !context.store.get().cwd) return;
+    event.preventDefault();
+    root.classList.add("drag");
+  });
+
+  on(root, "dragleave", (event) => {
+    if (event.target === root) root.classList.remove("drag");
+  });
+
+  on(root, "drop", async (event) => {
+    root.classList.remove("drag");
+    if (!context.agentId() || !context.store.get().cwd) return;
+    event.preventDefault();
+    const files = Array.from(event.dataTransfer?.files ?? []);
+    if (files.length) await upload(files);
+  });
+
+  on(window, "dragover", (event) => event.preventDefault());
+  on(window, "drop", (event) => event.preventDefault());
+
   const activate = () => {
+    root.classList.remove("drag");
     if (!context.agentId()) {
       table.replaceChildren();
       errors.textContent = "no client selected";

