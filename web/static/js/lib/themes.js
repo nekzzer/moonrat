@@ -77,9 +77,8 @@ export function initThemePicker(button) {
 
   button.textContent = "";
   button.setAttribute("aria-haspopup", "true");
-  const dot = el("i", { class: "theme-dot" });
   const label = el("span");
-  button.append(dot, label);
+  button.append(label);
 
   const swatches = THEMES.map((item) => {
     const swatch = el(
@@ -141,7 +140,6 @@ export function initThemePicker(button) {
     pop.classList.toggle("on", open);
     button.classList.toggle("open", open);
     button.setAttribute("aria-expanded", String(open));
-    dot.style.background = accent ?? "var(--fjord)";
     label.textContent = "theme: " + theme;
   }
 

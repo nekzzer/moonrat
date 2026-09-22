@@ -1,24 +1,30 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#070709">
-<title>MoonRAT · login</title>
-<link rel="stylesheet" href="/static/css/tokens.css">
-<link rel="stylesheet" href="/static/css/themes.css">
-<link rel="stylesheet" href="/static/css/base.css">
-<link rel="stylesheet" href="/static/css/components.css">
-<link rel="stylesheet" href="/static/css/views.css">
-</head>
-<body class="login-body">
-<main class="login-card">
-  <span class="brand">MOONRAT</span>
-  <p class="dim">access key required</p>
-  <input id="key" class="field" type="password" placeholder="key…" spellcheck="false" autocomplete="current-password">
-  <button type="button" class="action" id="login-submit">enter</button>
-  <div class="notice error" id="login-error"></div>
-</main>
-<script type="module" src="/static/js/login.js"></script>
-</body>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#070709" />
+        <title>MoonRAT · login</title>
+        <link rel="stylesheet" href="/static/css/tokens.css" />
+        <link rel="stylesheet" href="/static/css/themes.css" />
+        <link rel="stylesheet" href="/static/css/base.css" />
+        <link rel="stylesheet" href="/static/css/components.css" />
+        <link rel="stylesheet" href="/static/css/views.css" />
+    </head>
+    <body class="login-body">
+        <main class="login-card">
+            <span class="brand">MoonRAT</span>
+            <input
+                id="key"
+                class="field"
+                type="password"
+                placeholder="key…"
+                spellcheck="false"
+                autocomplete="current-password"
+            />
+            <button type="button" class="action" id="login-submit">enter</button>
+            <div class="notice error" id="login-error"></div>
+        </main>
+        <script type="module" src="/static/js/login.js"></script>
+    </body>
 </html>

@@ -46,7 +46,7 @@ export function createAgentsView({ root, store, onSelect }) {
     signature = next;
     root.replaceChildren(
       ...(agents.length === 0
-        ? [el("div", { class: "rail-empty" }, "no agents yet", el("span", { class: "dim" }, "curl the payload to begin"))]
+        ? [el("div", { class: "rail-empty" }, "no clients yet", el("span", { class: "dim" }, "curl the payload to begin"))]
         : agents.map(render)),
     );
     return true;

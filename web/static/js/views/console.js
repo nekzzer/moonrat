@@ -50,7 +50,7 @@ export function createConsoleView(root, context) {
   async function activate() {
     stop();
     if (!context.agentId()) {
-      info.textContent = "no agent selected";
+      info.textContent = "no client selected";
       return;
     }
     if (await pollInfo()) {

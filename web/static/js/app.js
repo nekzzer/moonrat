@@ -67,7 +67,7 @@ async function syncAgents() {
   const before = store.get().selectedId;
   await agents.refresh();
   const { agents: list, selectedId } = store.get();
-  status.textContent = list.length === 0 ? "no agents" : `${list.length} agent${list.length === 1 ? "" : "s"}`;
+  status.textContent = list.length === 0 ? "no clients" : `${list.length} client${list.length === 1 ? "" : "s"}`;
   if (selectedId !== before) {
     views[store.get().tab].deactivate();
     views[store.get().tab].activate();

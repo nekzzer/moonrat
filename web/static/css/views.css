@@ -6,9 +6,9 @@
 
   .login-card {
     display: grid;
-    gap: var(--space-3);
-    width: min(420px, 90vw);
-    padding: var(--space-6) var(--space-5);
+    gap: 14px;
+    width: min(360px, 90vw);
+    padding: 38px 34px 32px;
     border: 1px solid var(--line-1);
     border-radius: var(--radius-lg);
     background: var(--ink-2);
@@ -17,9 +17,30 @@
   }
 
   .login-card .brand {
-    margin-bottom: var(--space-1);
+    margin-bottom: 2px;
+    font-size: var(--text-lg);
+    letter-spacing: 0.48em;
+    margin-right: -0.48em;
+    text-align: center;
+  }
+
+  .login-card .brand::after {
+    content: none;
+  }
+
+  .login-card .dim {
+    margin-top: -6px;
+    text-align: center;
+  }
+
+  .login-card .field {
+    padding: 11px 14px;
     font-size: var(--text-md);
-    letter-spacing: 0.42em;
+  }
+
+  .login-card .action {
+    padding: 11px 14px;
+    font-size: var(--text-md);
   }
 
   @media (max-width: 880px) {

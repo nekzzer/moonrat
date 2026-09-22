@@ -130,7 +130,7 @@ export function createFilesView(root, context) {
   const activate = () => {
     if (!context.agentId()) {
       table.replaceChildren();
-      errors.textContent = "no agent selected";
+      errors.textContent = "no client selected";
       return;
     }
     open(context.store.get().cwd);
